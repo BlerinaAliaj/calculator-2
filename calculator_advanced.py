@@ -8,6 +8,21 @@ calculator program yourself in this file.
 from arithmetic_2 import *
 
 
+def my_reduce(function, iterable, initializer=None):
+    it = iter(iterable)
+    if initializer is None:
+        try:
+            initializer = next(it)
+        except StopIteration:
+            raise TypeError('No values to iterate over')
+
+    accum_value = initializer
+
+    for x in it:
+        accum_value = function(accum_value, x)
+    return accum_value
+
+
 # Your code goes here
 
 math_function = ""
@@ -20,16 +35,14 @@ while math_function != 'q':
 
     try:
         if tokens[0] == "+":
-            sub_total = reduce((lambda x, y: x+y), map(int, tokens[2:]))
+            sub_total = my_reduce(add, map(int, tokens[2:]))
             print add(int(tokens[1]), sub_total)
 
         elif tokens[0] == "-":
-            sub_total = reduce((lambda x, y: x+y), map(int, tokens[2:]))
-            print subtract(int(tokens[1]), sub_total)
+            print my_reduce(subtract, map(int, tokens[1:]))
 
         elif tokens[0] == "*":
-            sub_total = reduce((lambda x, y: x*y), map(int, tokens[2:]))
-            print multiply(int(tokens[1]), sub_total)
+            print my_reduce(multiply, map(int, tokens[1:]))
 
         elif tokens[0] == "/":
             if len(tokens) > 3:

@@ -15,10 +15,12 @@ def subtract(num1, *args):
 
 
 def multiply(*args):
-    multiplication = 1
-    for arg in args:
-        multiplication *= arg
-    return multiplication
+    # multiplication = 1
+    # for arg in args:
+    #     multiplication *= arg
+    # return multiplication
+    product = reduce((lambda x, y: x * y), args)
+    return product
 
 
 def divide(num1, num2):
